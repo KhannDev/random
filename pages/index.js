@@ -27,7 +27,9 @@ export default function Home() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-      <h1>Create User</h1>
+      <h1>
+        Enter your Employee ID and Name to participate in the Raffle Draw.{" "}
+      </h1>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>
           <label>
