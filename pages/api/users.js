@@ -42,16 +42,29 @@ export default async function handler(req, res) {
 
     const client = await clientPromise;
     const db = client.db("myDatabase"); // Replace with your actual DB name
-    const collection = db.collection("users");
 
-    // Check if the user ID already exists
-    const existingUser = await collection.findOne({ userId });
+    const employeesCollection = db.collection("employees");
+    const usersCollection = db.collection("users");
+
+    // Check if userId exists in employees collection
+    const isEmployee = await employeesCollection.findOne({ userId });
+    console.log(isEmployee);
+    if (!isEmployee) {
+      return res.status(400).json({ error: "Incorrect Employee ID" });
+    }
+
+    // Check if the user ID already exists in users collection
+    const existingUser = await usersCollection.findOne({ userId });
     if (existingUser) {
       return res.status(400).json({ error: "Employee already registered" });
     }
 
-    const result = await collection.insertOne({ userId, name });
-    return res.status(200).json({ message: "User added successfully", result });
+    // Insert the new user into users collection
+    const result = await usersCollection.insertOne({
+      userId,
+      name: isEmployee.name,
+    });
+    return res.status(200).json({ message: "Successfully Registered", result });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to add user" });
