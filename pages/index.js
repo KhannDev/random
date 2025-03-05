@@ -20,7 +20,7 @@ export default function Home() {
     setLoading(false);
 
     if (res.ok) {
-      setMessage("User saved successfully!");
+      setMessage("Successfully Registered!");
       setUserId("");
       setName("");
     } else {
@@ -47,7 +47,7 @@ export default function Home() {
         }}
       >
         <img
-          src="/logo.png"
+          src="Invita-white-logo.svg"
           alt="Logo"
           style={{ width: "40px", height: "40px", marginRight: "0.5rem" }}
         />
